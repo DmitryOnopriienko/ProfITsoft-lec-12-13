@@ -1,13 +1,44 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*body {*/
+/*  margin: 0;*/
+/*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
+/*    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',*/
+/*    sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*}*/
+
+/*code {*/
+/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
+/*    monospace;*/
+/*}*/
+
+.app {
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding: 25px;
+  text-align: center;
+  background: lightslategrey;
+  border: 1px solid dimgray;
+  border-radius: 10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.output {
+  margin-bottom: 5px;
+}
+
+.MuiOutlinedInput-input {
+  text-align: right;
+}
+
+.MuiInputBase-root {
+  background: white;
+}
+
+.MuiButtonGroup-contained {
+  width: 210px;
+  margin-bottom: 5px;
+  margin-right: 4px;
+  margin-left: 4px;
 }
