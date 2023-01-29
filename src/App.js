@@ -35,13 +35,20 @@ class App extends React.Component {
           <div className="action-buttons">
             <ButtonGroup
                 sx={{
-                  background: "darkslategray",
-                  borderColor: "darkslategray",
+                  // background: "darkslategray",
                 }}
                 variant="contained"
                 aria-label="outlined button group"
             >
               {createActionButtons(this.clickAction)}
+            </ButtonGroup>
+          </div>
+          <div className="deleting-buttons">
+            <ButtonGroup
+                variant="contained"
+                aria-label="outlined button group"
+            >
+
             </ButtonGroup>
           </div>
           <div className="num-buttons">
@@ -72,17 +79,27 @@ class App extends React.Component {
       history
     } = this.state;
 
-    if (out.match(/\d+[+\\\-*/]\d+/g)) {
+    if (out.match(/\d+\.?\d*[+*/-]\d+/g)) {
       const result = evaluate(out);
       out = out + "=" + result;
       history.push(out);
-      out = result.toString();
+
+      if (!result.toString().match(/^[-.0-9]/g)) {
+        out = "0";
+      } else {
+        out = result.toString();
+      }
+
       if (action === "=") {
         this.setState({
           out: out,
         });
         return;
       }
+    }
+
+    if (action === "=") {
+      return;
     }
 
     if (out.slice(-1).match(/[+\\\-*/]/)) {
