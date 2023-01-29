@@ -1,41 +1,46 @@
 import {Button} from "@mui/material";
 import React from "react";
 
-const createActionButtons = () => {
+const createActionButtons = (clickAction) => {
   const actionSymbols = ["+", "-", "*", "/", "="];
   const actionButtons = [];
   for (let i = 0; i < actionSymbols.length; i++) {
-    const symb = actionSymbols[i];
-    let color = "primary";
-    if (symb === "=") {
-      color = "error";
-    }
+    const symbol = actionSymbols[i];
+
+    let color = (symbol === "=") ? "#f99806" : "darkslategrey";
+
     actionButtons.push(
         <Button
+            sx={{
+              background: color,
+              borderColor: "darkslategrey",
+            }}
             variant="contained"
-            color={color}
             key={i}
             fullWidth={true}
+            onClick={() => clickAction(symbol)}
         >
-          {symb}
+          {symbol}
         </Button>
     );
   }
   return actionButtons;
 }
 
-const createNumButtons = () => {
+const createNumButtons = (clickNumber) => {
   const buttons = [];
   for (let i = 9; i >= 0; i--) {
     buttons.push(
         <Button
             sx={{
               margin: 0.5,
+              background: "darkslategrey",
             }}
             variant="contained"
-            color="primary"
+            // color="primary"
             key={i}
-            className="button"
+            className="num-button"
+            onClick={() => clickNumber(i)}
         >
           {i}
         </Button>

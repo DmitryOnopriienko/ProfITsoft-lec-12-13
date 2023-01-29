@@ -19,13 +19,13 @@
   margin-top: 100px;
   padding: 25px;
   text-align: center;
-  background: lightslategrey;
+  background: cadetblue;
   border: 1px solid dimgray;
   border-radius: 10px;
 }
 
 .output {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .MuiOutlinedInput-input {
