@@ -1,12 +1,15 @@
 import React from "react";
 import {ButtonGroup, TextField} from "@mui/material";
 import {createActionButtons, createNumButtons} from "./ButtonsCreate";
+import {evaluate} from "./Calculations";
+import History from "./components/History";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      out: "0"
+      out: "0",
+      history: [],
     };
     this.clickNumber = this.clickNumber.bind(this);
     this.clickAction = this.clickAction.bind(this);
@@ -14,11 +17,13 @@ class App extends React.Component {
 
   render() {
     const {
+      history,
       out: output
     } = this.state;
 
     return (
         <div className="app">
+          <History history={history} />
           <div className="output">
             <TextField
                 id="outlined-basic"
@@ -63,18 +68,24 @@ class App extends React.Component {
 
   clickAction(action) {
     let {
-      out
+      out,
+      history
     } = this.state;
-    console.log("clickAction:" + action);
-    
-    if (action === "=") {
-      if (out.match(/\d+[+\\\-*/]\d+/)) {
-        console.log(out)
+
+    if (out.match(/\d+[+\\\-*/]\d+/g)) {
+      const result = evaluate(out);
+      out = out + "=" + result;
+      history.push(out);
+      out = result.toString();
+      if (action === "=") {
+        this.setState({
+          out: out,
+        });
+        return;
       }
-      return;
     }
 
-    if (out.match(/\d+[+\\\-*/]/)) {
+    if (out.slice(-1).match(/[+\\\-*/]/)) {
       out = out.slice(0, out.length - 1);
     }
 
