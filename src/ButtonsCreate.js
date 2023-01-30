@@ -7,13 +7,12 @@ const createActionButtons = (clickAction) => {
   for (let i = 0; i < actionSymbols.length; i++) {
     const symbol = actionSymbols[i];
 
-    let color = (symbol === "=") ? "#f99806" : "darkslategrey";
+    let color = (symbol === "=") ? "red" : "primary";
 
     actionButtons.push(
         <Button
             sx={{
               background: color,
-              borderColor: "darkslategrey",
             }}
             variant="contained"
             key={i}
@@ -27,6 +26,29 @@ const createActionButtons = (clickAction) => {
   return actionButtons;
 }
 
+const createDeleteButtons = (clickDelete) => {
+  const deleteSymbols = ["C"];
+  const deleteButtons = [];
+  for (let i = 0; i < deleteSymbols.length; i++) {
+    const symbol = deleteSymbols[i];
+    deleteButtons.push(
+      <Button
+          sx={{
+            background: "red",
+            margin: 0.5,
+            width: 210,
+          }}
+          variant="contained"
+          key={i}
+          onClick={() => clickDelete(symbol)}
+      >
+        {symbol}
+      </Button>
+    );
+  }
+  return deleteButtons;
+}
+
 const createNumButtons = (clickNumber) => {
   const buttons = [];
   for (let i = 9; i >= 0; i--) {
@@ -34,7 +56,7 @@ const createNumButtons = (clickNumber) => {
         <Button
             sx={{
               margin: 0.5,
-              background: "darkslategrey",
+              // background: "darkslategrey",
             }}
             variant="contained"
             // color="primary"
@@ -49,4 +71,4 @@ const createNumButtons = (clickNumber) => {
   return buttons;
 }
 
-export {createActionButtons, createNumButtons};
+export {createActionButtons, createNumButtons, createDeleteButtons};

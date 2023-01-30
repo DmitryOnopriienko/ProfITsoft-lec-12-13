@@ -1,6 +1,6 @@
 import React from "react";
 import {ButtonGroup, TextField} from "@mui/material";
-import {createActionButtons, createNumButtons} from "./ButtonsCreate";
+import {createActionButtons, createDeleteButtons, createNumButtons} from "./ButtonsCreate";
 import {evaluate} from "./Calculations";
 import History from "./components/History";
 
@@ -13,6 +13,7 @@ class App extends React.Component {
     };
     this.clickNumber = this.clickNumber.bind(this);
     this.clickAction = this.clickAction.bind(this);
+    this.clickDelete = this.clickDelete.bind(this);
   }
 
   render() {
@@ -44,12 +45,7 @@ class App extends React.Component {
             </ButtonGroup>
           </div>
           <div className="deleting-buttons">
-            <ButtonGroup
-                variant="contained"
-                aria-label="outlined button group"
-            >
-
-            </ButtonGroup>
+              {createDeleteButtons(this.clickDelete)}
           </div>
           <div className="num-buttons">
             {createNumButtons(this.clickNumber)}
@@ -109,6 +105,15 @@ class App extends React.Component {
     this.setState({
       out: out + action,
     });
+  }
+
+  clickDelete(deleteAction) {
+    if (deleteAction === "C") {
+      this.setState({
+        out: "0"
+      });
+      return;
+    }
   }
 }
 
