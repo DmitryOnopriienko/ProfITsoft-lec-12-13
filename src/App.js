@@ -3,11 +3,11 @@ import {combineReducers, createStore} from "redux"
 import {Provider} from "react-redux";
 import Calculator from "./pages/Examples";
 
-const resultReducer = combineReducers({
+const reducer = combineReducers({
   examples: examplesReducer,
 });
 
-const store = createStore(resultReducer);
+const store = createStore(reducer);
 
 const App = () => {
   return (

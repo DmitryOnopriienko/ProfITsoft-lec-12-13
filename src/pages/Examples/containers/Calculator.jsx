@@ -1,8 +1,10 @@
 import React from "react";
 import History from "../../../components/History";
-import {ButtonGroup, TextField} from "@mui/material";
+import {Button, ButtonGroup, TextField} from "@mui/material";
 import {createActionButtons, createDeleteButtons, createNumButtons} from "../../../ButtonsCreate";
 import {evaluate} from "../../../Calculations";
+import {connect} from "react-redux";
+import examplesActions from "../actions/examples";
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -20,7 +22,10 @@ class Calculator extends React.Component {
     const {
       history,
       out: output
-    } = this.state;
+    } = this.state
+    const {
+      examples,
+    } = this.props;
 
     return (
         <div className="app">
@@ -47,6 +52,20 @@ class Calculator extends React.Component {
           <div className="num-buttons">
             {createNumButtons(this.clickNumber)}
           </div>
+          <Button
+              sx={{
+                margin: 0.5,
+                width: 210,
+              }}
+              variant="contained"
+              onClick={() => examplesActions.fetchExamples({
+                examplesCount: 4,
+              })(this.props.dispatch)}
+          >
+            Get and Solve
+            {!examples.isLoading &&
+                this.solveExamplesFromBackend(examples.list)}
+          </Button>
         </div>
     );
   }
@@ -111,6 +130,27 @@ class Calculator extends React.Component {
       });
     }
   }
+
+  solveExamplesFromBackend(examples) {
+    const {
+      history,
+    } = this.state;
+    for (let i = 0; i < examples.length; i++) {
+      let example = examples[i];
+      const result = evaluate(example);
+      example += "=" + result;
+      history.push(example);
+    }
+    this.props.examples.list = [];
+  }
 }
 
-export default Calculator;
+const mapReduxStateToProps = reduxState => ({
+  ...reduxState,
+});
+
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
+
+export default connect(mapReduxStateToProps, mapDispatchToProps)(Calculator);

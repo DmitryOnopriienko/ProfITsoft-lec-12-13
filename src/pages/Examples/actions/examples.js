@@ -11,20 +11,17 @@ const errorReceiveExamples = () => ({
   type: 'ERROR_RECEIVE_EXAMPLES'
 });
 
-const getExamples = (studentsCount) => new Promise((onSuccess) => {
-  setTimeout(
-      () => onSuccess(Array
-          .from(new Array(studentsCount).keys())
-          .map(index => ({ name: `Student ${index}`}))),
-      2000
-  );
-});
+const getExamplesHttp = (examplesCount = 5) => {
+  return fetch("http://localhost:8080/math/examples?count=" + examplesCount);
+}
 
-const fetchExamples = ({ studentsCount }) => (dispatch) => {
-  dispatch(requestExamples()); // Повідомляю стору, що роблю запит користувачів
-  return getExamples(studentsCount) // Викликаю функцію запиту студентів
-      .then(students => dispatch(receiveExamples(students))) // Успіх
-      .catch(() => dispatch(errorReceiveExamples())); // Помилка
+const fetchExamples = ({ examplesCount }) => (dispatch) => {
+  dispatch(requestExamples());
+
+  return getExamplesHttp(examplesCount)
+      .then(examples => examples.json())
+      .then(examples => dispatch(receiveExamples(examples)))
+      .catch(() => dispatch(errorReceiveExamples()));
 };
 
 export default {

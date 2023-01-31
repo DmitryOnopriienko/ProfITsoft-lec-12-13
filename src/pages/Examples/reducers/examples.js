@@ -6,6 +6,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case "ERROR_RECEIVE_EXAMPLES": {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
     case "REQUEST_EXAMPLES": {
       return {
         ...state,
@@ -18,7 +24,7 @@ export default (state = initialState, action) => {
       } = action;
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         list: examples,
       };
     }
